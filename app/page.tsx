@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
+import DemoSection from "@/components/home/demo-section";
+import HeroSection from "@/components/home/hero-section";
 
 export default function Home() {
   return (
-    <>
-      Initial Setup
-      <Button>Click</Button>
-    </>
+    <div className="flex flex-col">
+      <HeroSection />
+      <DemoSection />
+    </div>
   );
 }
