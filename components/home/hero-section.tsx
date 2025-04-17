@@ -36,7 +36,7 @@ const HeroSection = () => {
         className="rounded-full px-8 sm:px-10 lg:px-12 py-4 text-base sm:text-lg lg:text-xl flex items-center gap-2"
       >
         <Link href="/#pricing">
-          <span>Try Sommaire</span>
+          <span>Try Summarize</span>
           <ArrowRight className="animate-pulse" />
         </Link>
       </Button>
