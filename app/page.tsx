@@ -1,3 +1,10 @@
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
-  return <div>Initial Setup</div>;
+  return (
+    <>
+      Initial Setup
+      <Button>Click</Button>
+    </>
+  );
 }
