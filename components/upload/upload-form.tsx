@@ -45,7 +45,6 @@ const UploadForm = () => {
     }
 
     // upload the file to 'uploadthing'
-
     const resp = await startUpload([file]);
     if (!resp) {
       toast("something went wrong!");
@@ -54,12 +53,11 @@ const UploadForm = () => {
     toast("PDF Uploaded....");
 
     // parse the pdf using langchain
-
     // @ts-expect-error - generatePDFSummary type definition is missing
     const result = await generatePDFSummary(resp);
-    console.log("result: ", result);
     const { data = null, message = null } = result || {};
     if (data) {
+      // adding pdf in database...
       toast("Saving PDF.....");
     }
   };
