@@ -4,6 +4,7 @@ import UploadFormInput from "./upload-form-input";
 import { toast } from "sonner";
 
 import { z } from "zod";
+import { generatePDFSummary } from "@/actions/upload-actions";
 
 const schema = z.object({
   file: z
@@ -18,17 +19,18 @@ const schema = z.object({
     ),
 });
 const UploadForm = () => {
-  const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
+  const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
       toast("uploaded successfully!");
     },
     onUploadError: () => {
       toast("error occurred while uploading...");
     },
-    onUploadBegin: ({ file }) => {
+    onUploadBegin: () => {
       toast("upload has begun...");
     },
   });
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -48,8 +50,14 @@ const UploadForm = () => {
       toast("something went wrong!");
       return;
     }
+    toast("PDF Uploaded....");
 
-    toast("uploading PDF....");
+    // parse the pdf using langchain
+
+    // @ts-expect-error - generatePDFSummary type definition is missing
+    const summary = await generatePDFSummary(resp);
+    console.log("summary: ", summary);
+
   };
   return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
