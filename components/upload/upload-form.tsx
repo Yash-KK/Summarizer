@@ -1,5 +1,7 @@
 "use client";
+import { useUploadThing } from "@/utils/uploadthing";
 import UploadFormInput from "./upload-form-input";
+import { toast } from "sonner";
 
 import { z } from "zod";
 
@@ -16,22 +18,38 @@ const schema = z.object({
     ),
 });
 const UploadForm = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
+    onClientUploadComplete: () => {
+      toast("uploaded successfully!");
+    },
+    onUploadError: () => {
+      toast("error occurred while uploading...");
+    },
+    onUploadBegin: ({ file }) => {
+      toast("upload has begun...");
+    },
+  });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
     const formData = new FormData(e.currentTarget);
     const file = formData.get("file") as File;
 
     // validating the fields
     const validatedFields = schema.safeParse({ file });
 
-    console.log("validatedFields: ", validatedFields);
     if (!validatedFields.success) {
-      console.log(
-        validatedFields.error.flatten().fieldErrors.file ?? "Invalid File"
-      );
+      toast("invalid file");
       return;
     }
+
+    // upload the file to 'uploadthing'
+    const resp = await startUpload([file]);
+    if (!resp) {
+      toast("something went wrong!");
+      return;
+    }
+
+    toast("uploading PDF....");
   };
   return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
