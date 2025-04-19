@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useUploadThing } from "@/utils/uploadthing";
 import UploadFormInput from "./upload-form-input";
 import { toast } from "sonner";
@@ -18,52 +19,60 @@ const schema = z.object({
       "File must be a PDF",
     ),
 });
+
 const UploadForm = () => {
+  const [isUploading, setIsUploading] = useState(false);
+
   const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
-      toast("uploaded successfully!");
+      toast("Uploaded successfully!");
+      setIsUploading(false);
     },
     onUploadError: () => {
-      toast("error occurred while uploading...");
+      toast("Error occurred while uploading...");
+      setIsUploading(false);
     },
     onUploadBegin: () => {
-      toast("upload has begun...");
+      toast("Upload has begun...");
     },
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsUploading(true);
+
     const formData = new FormData(e.currentTarget);
     const file = formData.get("file") as File;
 
-    // validating the fields
     const validatedFields = schema.safeParse({ file });
-
     if (!validatedFields.success) {
-      toast("invalid file");
+      toast("Invalid file");
+      setIsUploading(false);
       return;
     }
 
-    // upload the file to 'uploadthing'
     const resp = await startUpload([file]);
     if (!resp) {
-      toast("something went wrong!");
+      toast("Something went wrong!");
+      setIsUploading(false);
       return;
     }
+
     toast("PDF Uploaded....");
 
-    // parse the pdf using langchain
     // @ts-expect-error - generatePDFSummary type definition is missing
     const result = await generatePDFSummary(resp);
-    const { data = null, message = null } = result || {};
+    const { data = null } = result || {};
     if (data) {
-      // adding pdf in database...
       toast("Saving PDF.....");
     }
+
+    setIsUploading(false);
   };
+
   return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
-      <UploadFormInput onSubmit={handleSubmit} />
+      <UploadFormInput onSubmit={handleSubmit} isUploading={isUploading} />
     </div>
   );
 };
