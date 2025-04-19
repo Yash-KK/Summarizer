@@ -11,11 +11,11 @@ const schema = z.object({
     .instanceof(File, { message: "Invalid File" })
     .refine(
       (file) => file.size <= 20 * 1024 * 1024,
-      "File size must be less than 20 MB"
+      "File size must be less than 20 MB",
     )
     .refine(
       (file) => file.type.startsWith("application/pdf"),
-      "File must be a PDF"
+      "File must be a PDF",
     ),
 });
 const UploadForm = () => {
@@ -45,6 +45,7 @@ const UploadForm = () => {
     }
 
     // upload the file to 'uploadthing'
+
     const resp = await startUpload([file]);
     if (!resp) {
       toast("something went wrong!");
@@ -55,9 +56,12 @@ const UploadForm = () => {
     // parse the pdf using langchain
 
     // @ts-expect-error - generatePDFSummary type definition is missing
-    const summary = await generatePDFSummary(resp);
-    console.log("summary: ", summary);
-
+    const result = await generatePDFSummary(resp);
+    console.log("result: ", result);
+    const { data = null, message = null } = result || {};
+    if (data) {
+      toast("Saving PDF.....");
+    }
   };
   return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
