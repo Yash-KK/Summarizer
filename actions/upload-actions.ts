@@ -1,8 +1,20 @@
 "use server";
 
+import { getDbConnection } from "@/lib/db";
 import { generateSummaryFromGemini } from "@/lib/gemini";
 import { fetchAndExtractPdfText } from "@/lib/langchain";
 import { generateSummaryFromOpenAI } from "@/lib/openai";
+import { formatFileNameAsTitle } from "@/utils/format-utils";
+import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
+
+interface PdfSummaryType {
+  userId?: string;
+  fileUrl: string;
+  summary: string;
+  title: string;
+  fileName: string;
+}
 
 export const generatePDFSummary = async (
   uploadResponse: [
@@ -14,8 +26,8 @@ export const generatePDFSummary = async (
           name: string;
         };
       };
-    },
-  ],
+    }
+  ]
 ) => {
   if (!uploadResponse) {
     return {
@@ -31,7 +43,7 @@ export const generatePDFSummary = async (
       file: { url: pdfUrl, name: fileName },
     },
   } = uploadResponse[0];
-
+  console.log(userId, fileName);
   if (!pdfUrl) {
     return {
       success: false,
@@ -53,11 +65,11 @@ export const generatePDFSummary = async (
         } catch (geminiError) {
           console.error(
             "Gemini API failed after OPENAI quote exceeded",
-            geminiError,
+            geminiError
           );
 
           throw new Error(
-            "Failed to generate summary with available AI providers",
+            "Failed to generate summary with available AI providers"
           );
         }
       }
@@ -71,10 +83,14 @@ export const generatePDFSummary = async (
         data: null,
       };
     }
+
+    const formattedFileName = formatFileNameAsTitle(fileName);
+
     return {
       success: true,
       message: "summary generated",
       data: {
+        title: formattedFileName,
         summary,
       },
     };
@@ -86,4 +102,88 @@ export const generatePDFSummary = async (
       error: err,
     };
   }
+};
+
+const savePdfSummary = async ({
+  userId,
+  fileUrl,
+  summary,
+  title,
+  fileName,
+}: PdfSummaryType) => {
+  try {
+    const sql = await getDbConnection();
+    const [insertedSummary] = await sql`
+      INSERT INTO pdf_summaries (
+        user_id,
+        original_file_url,
+        summary_text,
+        title,
+        file_name
+      ) VALUES (
+        ${userId},
+        ${fileUrl},
+        ${summary},
+        ${title},
+        ${fileName}
+      )
+      RETURNING id;
+    `;
+    return insertedSummary;
+  } catch (error: unknown) {
+    console.error("Error saving PDF summary", error);
+    throw error;
+  }
+};
+
+export const storePdfSummaryAction = async ({
+  fileUrl,
+  summary,
+  title,
+  fileName,
+}: PdfSummaryType) => {
+  // user logged in
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let savedSummary: any;
+
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return {
+        success: false,
+        message: "user not found",
+      };
+    }
+    savedSummary = await savePdfSummary({
+      userId,
+      fileUrl,
+      summary,
+      title,
+      fileName,
+    });
+
+    if (!savedSummary) {
+      return {
+        success: false,
+        message: "Failed to save PDF summary, please try again...",
+      };
+    }
+  } catch (error: unknown) {
+    return {
+      success: false,
+      message:
+        error instanceof Error ? error.message : "Error saving PDF Summary",
+    };
+  }
+
+  revalidatePath(`/summaries/${savedSummary.id}`);
+
+  return {
+    success: true,
+    message: "PDF summary saved successfully!",
+    data: {
+      id: savedSummary.id,
+    },
+  };
 };

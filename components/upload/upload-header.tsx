@@ -8,13 +8,14 @@ const UploadHeader = () => {
           <div className="flex items-center px-4 py-1.5 text-sm font-medium bg-white rounded-full transition-colors duration-200 group-hover:bg-gray-50">
             <Sparkles className="h-5 w-5 mr-2 text-rose-600 animate-pulse" />
             <span className="text-sm text-rose-600">
-              Ai-Powered Content Creation
+              AI-Enhanced Document Insights
             </span>
           </div>
         </div>
       </div>
+
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-        Start Uploading your{" "}
+        Summarize Your{" "}
         <span className="relative inline-block">
           <span className="relative z-10 px-2">PDFs</span>
           <span
@@ -22,11 +23,14 @@ const UploadHeader = () => {
             aria-hidden="true"
           ></span>
         </span>{" "}
-        summaries
+        in Seconds
       </h1>
 
       <div className="mt-2 text-lg leading-8 text-gray-600 max-w-2xl text-center">
-        <p>Upload your PDF and let our AI do the magic!</p>
+        <p>
+          Upload any PDF and instantly get a clean, easy-to-read summary—
+          powered by AI and optimized for clarity.
+        </p>
       </div>
     </div>
   );
