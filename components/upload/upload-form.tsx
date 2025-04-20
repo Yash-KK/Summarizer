@@ -31,7 +31,6 @@ const UploadForm = () => {
   const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
       toast("Uploaded successfully!");
-      setIsUploading(false);
     },
     onUploadError: () => {
       toast("Error occurred while uploading...");
