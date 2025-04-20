@@ -5,23 +5,28 @@ import UploadFormInput from "./upload-form-input";
 import { toast } from "sonner";
 
 import { z } from "zod";
-import { generatePDFSummary } from "@/actions/upload-actions";
+import {
+  generatePDFSummary,
+  storePdfSummaryAction,
+} from "@/actions/upload-actions";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   file: z
     .instanceof(File, { message: "Invalid File" })
     .refine(
       (file) => file.size <= 20 * 1024 * 1024,
-      "File size must be less than 20 MB",
+      "File size must be less than 20 MB"
     )
     .refine(
       (file) => file.type.startsWith("application/pdf"),
-      "File must be a PDF",
+      "File must be a PDF"
     ),
 });
 
 const UploadForm = () => {
   const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter();
 
   const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: () => {
@@ -62,9 +67,25 @@ const UploadForm = () => {
 
     // @ts-expect-error - generatePDFSummary type definition is missing
     const result = await generatePDFSummary(resp);
-    const { data = null } = result || {};
+    const { data = null, message = null } = result || {};
+    toast(message);
+
     if (data) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let storeResult: any;
       toast("Saving PDF.....");
+
+      if (data.summary) {
+        storeResult = await storePdfSummaryAction({
+          summary: data.summary,
+          fileUrl: resp[0].serverData.file.url,
+          title: data.title,
+          fileName: file.name,
+        });
+
+        toast("Summary Saved!");
+        router.push(`/summaries/${storeResult.data.id}`);
+      }
     }
 
     setIsUploading(false);
