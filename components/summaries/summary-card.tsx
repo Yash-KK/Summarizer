@@ -4,6 +4,7 @@ import DeleteButton from "./delete-button";
 import { FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
+import { Badge } from "../ui/badge";
 
 const SummaryHeader = ({
   //   fileUrl,
@@ -52,7 +53,6 @@ const SummaryCard = ({ summary }: { summary: any }) => {
         <div className="absolute top-2 right-2">
           <DeleteButton summaryId={summary.id} />
         </div>
-
         <Link href={`summaries/${summary.id}`} className="block p-4 sm:p-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <SummaryHeader
