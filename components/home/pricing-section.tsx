@@ -1,45 +1,7 @@
 import { cn } from "@/lib/utils";
+import { pricingPlans, PriceType } from "@/utils/constants";
 import { ArrowRight, CheckIcon } from "lucide-react";
 import Link from "next/link";
-
-interface PriceType {
-  name: string;
-  price: number;
-  description: string;
-  items: string[];
-  id: string;
-  paymentLink: string;
-  priceId: string;
-}
-
-const plans: PriceType[] = [
-  {
-    name: "Basic",
-    price: 9,
-    description: "Perfect for occasional use",
-    items: [
-      "5 PDF summaries per month",
-      "Standard processing speed",
-      "Email support",
-    ],
-    id: "basic",
-    paymentLink: "#",
-    priceId: "",
-  },
-  {
-    name: "Pro",
-    price: 29,
-    description: "Ideal for power users",
-    items: [
-      "Unlimited PDF summaries",
-      "Priority processing speed",
-      "Premium email support",
-    ],
-    id: "pro",
-    paymentLink: "#",
-    priceId: "",
-  },
-];
 
 const PricingSection = () => {
   return (
@@ -54,7 +16,7 @@ const PricingSection = () => {
           </p>
         </div>
         <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8">
-          {plans.map((plan) => (
+          {pricingPlans.map((plan) => (
             <PricingCard key={plan.id} {...plan} />
           ))}
         </div>
@@ -84,7 +46,7 @@ const PricingCard: React.FC<PriceType> = ({
       <div
         className={cn(
           "relative flex flex-col h-full gap-6 z-10 p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm bg-white dark:bg-zinc-900",
-          isPro && "border-rose-500 shadow-lg",
+          isPro && "border-rose-500 shadow-lg"
         )}
       >
         <div className="space-y-1">
@@ -120,7 +82,7 @@ const PricingCard: React.FC<PriceType> = ({
               "w-full rounded-full flex items-center justify-center gap-2 text-white py-2 px-4 transition-colors font-semibold",
               isPro
                 ? "bg-rose-600 hover:bg-rose-700"
-                : "bg-rose-400 hover:bg-rose-500",
+                : "bg-rose-400 hover:bg-rose-500"
             )}
           >
             Get Started <ArrowRight size={18} />
