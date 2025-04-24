@@ -8,7 +8,6 @@ export const handleCheckoutSessionCompleted = async ({
   session: Stripe.Checkout.Session;
   stripe: Stripe;
 }) => {
-  console.log("Checkout session completed: ", session);
   const customerId = session.customer as string;
   const customer = await stripe.customers.retrieve(customerId);
   const priceId = session.line_items?.data[0].price?.id;
@@ -80,7 +79,6 @@ export const handleSubscriptionDeleted = async ({
   subscriptionId: string;
   stripe: Stripe;
 }) => {
-  console.log("Subscription deleted", subscriptionId);
   try {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
     const sql = await getDbConnection();

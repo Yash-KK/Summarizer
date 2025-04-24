@@ -4,7 +4,6 @@ import SummaryView from "../summaries/summary_viewer";
 import { DEMO_SUMMARY } from "@/utils/constants";
 
 const DemoSection = () => {
-  console.log(DEMO_SUMMARY);
   return (
     <section className="relative w-full bg-white">
       <div className="py-20 lg:py-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
