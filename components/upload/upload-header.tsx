@@ -1,16 +1,21 @@
 import { Sparkles } from "lucide-react";
+import { MotionDiv } from "../common/motion-wrapper";
+import { itemVariants } from "@/utils/constants";
 
 const UploadHeader = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-6 text-center">
       <div className="mb-6">
         <div className="inline-flex items-center p-[1px] overflow-hidden rounded-full bg-gradient-to-r from-rose-200 via-rose-500 to-rose-800 animate-gradient-x group">
-          <div className="flex items-center px-4 py-1.5 text-sm font-medium bg-white rounded-full transition-colors duration-200 group-hover:bg-gray-50">
+          <MotionDiv
+            variants={itemVariants}
+            className="flex items-center px-4 py-1.5 text-sm font-medium bg-white rounded-full transition-colors duration-200 group-hover:bg-gray-50"
+          >
             <Sparkles className="h-5 w-5 mr-2 text-rose-600 animate-pulse" />
             <span className="text-sm text-rose-600">
               AI-Enhanced Document Insights
             </span>
-          </div>
+          </MotionDiv>
         </div>
       </div>
 
@@ -26,12 +31,15 @@ const UploadHeader = () => {
         in Seconds
       </h1>
 
-      <div className="mt-2 text-lg leading-8 text-gray-600 max-w-2xl text-center">
+      <MotionDiv
+        variants={itemVariants}
+        className="mt-2 text-lg leading-8 text-gray-600 max-w-2xl text-center"
+      >
         <p>
           Upload any PDF and instantly get a clean, easy-to-read summary—
           powered by AI and optimized for clarity.
         </p>
-      </div>
+      </MotionDiv>
     </div>
   );
 };

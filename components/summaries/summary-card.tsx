@@ -4,7 +4,8 @@ import DeleteButton from "./delete-button";
 import { FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
-import { Badge } from "../ui/badge";
+import { MotionDiv } from "../common/motion-wrapper";
+import { itemVariants } from "@/utils/constants";
 
 const SummaryHeader = ({
   //   fileUrl,
@@ -48,15 +49,27 @@ const StatusBadge = ({ status }: { status: string }) => {
 };
 const SummaryCard = ({ summary }: { summary: any }) => {
   return (
-    <div>
+    <MotionDiv
+      variants={itemVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{
+        scale: 1.02,
+        transition: { duration: 0.2, ease: "easeOut" },
+      }}
+    >
       <Card className="relative h-full">
         <div className="absolute top-2 right-2">
           <DeleteButton summaryId={summary.id} />
         </div>
         <Link href={`summaries/${summary.id}`} className="block p-4 sm:p-6">
-          <div className="flex flex-col gap-3 sm:gap-4">
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col gap-3 sm:gap-4"
+          >
             <SummaryHeader
-              //   fileUrl={summary.original_file_url}
               title={summary.title}
               createdAt={summary.created_at}
             />
@@ -68,10 +81,10 @@ const SummaryCard = ({ summary }: { summary: any }) => {
             <div className="flex justify-between items-center mt-2 sm:mt-4">
               <StatusBadge status={summary.status} />
             </div>
-          </div>
+          </MotionDiv>
         </Link>
       </Card>
-    </div>
+    </MotionDiv>
   );
 };
 

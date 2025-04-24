@@ -1,3 +1,4 @@
+import { MotionDiv } from "@/components/common/motion-wrapper";
 import SourceInfo from "@/components/summaries/source-info";
 import SummaryHeader from "@/components/summaries/summary-header";
 import SummaryView from "@/components/summaries/summary_viewer";
@@ -43,7 +44,12 @@ const SummaryPage = async (props: { params: Promise<{ id: string }> }) => {
               originalFileUrl={original_file_url}
             />
           )}
-          <div className="relative mt-4 sm:mt-8 lg:mt-16">
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative mt-4 sm:mt-8 lg:mt-16"
+          >
             <div className="relative p-4 sm:p-6 lg:p-8 bg-white/80 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl border border-rose-100/30 transition-all duration-300 hover:shadow-2xl hover:bg-white/90 max-w-4xl mx-auto">
               <div className="absolute inset-0 bg-linear-to-br from-rose-50/50 via-orange-50 to-transparent opacity-50 rounded-2xl sm:rounded-3xl" />
 
@@ -56,7 +62,7 @@ const SummaryPage = async (props: { params: Promise<{ id: string }> }) => {
                 <SummaryView summary={summary_text} />
               </div>
             </div>
-          </div>
+          </MotionDiv>
         </div>
       </div>
     </div>

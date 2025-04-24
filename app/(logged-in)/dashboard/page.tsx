@@ -1,8 +1,14 @@
+import {
+  MotionDiv,
+  MotionH1,
+  MotionP,
+} from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import SummaryCard from "@/components/summaries/summary-card";
 import { Button } from "@/components/ui/button";
 import getSummaries from "@/lib/summaries";
 import { hasReachedUploadLimit } from "@/lib/user";
+import { itemVariants } from "@/utils/constants";
 import { currentUser } from "@clerk/nextjs/server";
 import { ArrowRight, Plus } from "lucide-react";
 import Link from "next/link";
@@ -18,14 +24,31 @@ const DashboardPage = async () => {
   const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit(userId);
   return (
     <main className="min-h-screen">
-      <div className="container mx-auto flex flex-col gap-4">
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="container mx-auto flex flex-col gap-4"
+      >
         <div className="px-2 py-12 sm:py-24">
           <div className="flex gap-4 mb-8 justify-between">
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl font-bold tracking-tight bg-linear-to-r from-gray-600 to-gray-900 bg-clip-text text-transparent">
+              <MotionH1
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                className="text-4xl font-bold tracking-tight bg-linear-to-r from-gray-600 to-gray-900 bg-clip-text text-transparent"
+              >
                 Your Summaries
-              </h1>
-              <p>Transform your PDFs into concise, actionalble insights</p>
+              </MotionH1>
+              <MotionP
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                Transform your PDFs into concise, actionalble insights
+              </MotionP>
             </div>
             {!hasReachedLimit && (
               <Button
@@ -41,7 +64,12 @@ const DashboardPage = async () => {
           </div>
 
           {hasReachedLimit && (
-            <div className="mb-6">
+            <MotionDiv
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              className="mb-6"
+            >
               <div className="bg-rose-50 border border-rose-200 rounded-lg p-4 text-rose-800">
                 <p className="text-sm">
                   You have reached the limit of {uploadLimit} uploads on the
@@ -53,7 +81,7 @@ const DashboardPage = async () => {
                   for unlimited uploads
                 </p>
               </div>
-            </div>
+            </MotionDiv>
           )}
 
           {summaries.length === 0 ? (
@@ -66,7 +94,7 @@ const DashboardPage = async () => {
             </div>
           )}
         </div>
-      </div>
+      </MotionDiv>
     </main>
   );
 };
