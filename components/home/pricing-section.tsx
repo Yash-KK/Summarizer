@@ -44,28 +44,30 @@ const PricingCard: React.FC<PriceType> = ({
   return (
     <MotionDiv
       variants={listVariant}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.05 }}
       className="relative w-full max-w-lg"
     >
       {isPro && (
-        <div className="absolute top-4 right-4 bg-rose-500 text-white text-xs px-3 py-1 rounded-full uppercase font-semibold tracking-wide z-10">
+        <div className="absolute top-4 right-4 bg-gradient-to-r from-rose-500 to-rose-600 text-white text-xs px-3 py-1 rounded-full uppercase font-semibold tracking-wide z-10 shadow-xl">
           Most Popular
         </div>
       )}
 
       <div
         className={cn(
-          "relative flex flex-col h-full gap-6 z-10 p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm bg-white dark:bg-zinc-900",
+          "relative flex flex-col h-full gap-6 z-10 p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md bg-white dark:bg-zinc-900 transition-transform duration-300 ease-in-out",
           isPro && "border-rose-500 shadow-lg"
         )}
       >
         <MotionDiv variants={listVariant} className="space-y-1">
-          <h3 className="text-lg lg:text-xl font-bold capitalize">{name}</h3>
+          <h3 className="text-lg lg:text-xl font-bold capitalize text-gray-900 dark:text-white hover:text-rose-600 transition-colors">
+            {name}
+          </h3>
           <p className="text-gray-600 dark:text-gray-300">{description}</p>
         </MotionDiv>
 
         <div className="flex items-end space-x-2">
-          <span className="text-5xl font-extrabold tracking-tight">
+          <span className="text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             ${price}
           </span>
           <div className="flex flex-col mb-1">
@@ -89,10 +91,10 @@ const PricingCard: React.FC<PriceType> = ({
           <Link
             href={paymentLink}
             className={cn(
-              "w-full rounded-full flex items-center justify-center gap-2 text-white py-2 px-4 transition-colors font-semibold",
+              "w-full rounded-full flex items-center justify-center gap-2 text-white py-2 px-4 transition-all duration-300 font-semibold",
               isPro
-                ? "bg-rose-600 hover:bg-rose-700"
-                : "bg-rose-400 hover:bg-rose-500"
+                ? "bg-rose-600 hover:bg-rose-700 transform hover:scale-105"
+                : "bg-rose-400 hover:bg-rose-500 transform hover:scale-105"
             )}
           >
             Get Started <ArrowRight size={18} />

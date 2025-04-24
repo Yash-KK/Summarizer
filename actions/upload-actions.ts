@@ -39,11 +39,9 @@ export const generatePDFSummary = async (
 
   const {
     serverData: {
-      userId,
       file: { url: pdfUrl, name: fileName },
     },
   } = uploadResponse[0];
-  console.log(userId, fileName);
   if (!pdfUrl) {
     return {
       success: false,

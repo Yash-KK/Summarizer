@@ -36,26 +36,23 @@ const parseSection = (section: string): { title: string; points: string[] } => {
   };
 };
 
-// Renders the section title with sticky effect
 const SectionTitle = ({ title }: { title: string }) => (
   <div className="flex flex-col gap-2 mb-6 sticky top-0 pt-2 pb-4 bg-background/80 backdrop-blur z-10">
     <h2 className="text-3xl lg:text-4xl font-bold text-center">{title}</h2>
   </div>
 );
 
-// Main component to display parsed summary
 const SummaryView = ({ summary }: { summary: string }) => {
   const [currentSection, setCurrentSection] = useState(0);
 
   const sections = useMemo(() => {
     return summary
       .split("\n# ")
-      .map((s, i) => (i === 0 ? s : "# " + s)) // re-attach '#' for first split
+      .map((s, i) => (i === 0 ? s : "# " + s))
       .map((section) => section.trim())
       .filter(Boolean)
       .map(parseSection);
   }, [summary]);
-
   const handleNext = () =>
     setCurrentSection((prev) => Math.min(prev + 1, sections.length - 1));
 
@@ -65,7 +62,7 @@ const SummaryView = ({ summary }: { summary: string }) => {
   const current = sections[currentSection] || { title: "", points: [] };
 
   return (
-    <Card className="relative px-2 h-[500px] sm:h-[600px] lg:h-[700px] w-full xl:w-[600px] overflow-hidden bg-linear-to-br from-background via-background/95 to-rose-500/5 backdrop-blur-lg shadow-2xl rounded-3xl border border-rose-500/10">
+    <Card className="relative px-2 h-[500px] sm:h-[600px] lg:h-[700px] w-full xl:w-[600px] overflow-hidden bg-gradient-to-br from-pink-200/20 via-rose-300/10 to-yellow-100 backdrop-blur-lg shadow-xl rounded-3xl border border-rose-500/20">
       <ProgressBar sections={sections} currentSection={currentSection} />
 
       <MotionDiv
@@ -78,7 +75,7 @@ const SummaryView = ({ summary }: { summary: string }) => {
       >
         <div className="px-4 sm:px-6">
           <SectionTitle title={current.title} />
-          <ContentSection title={current.title} points={current.points} />
+          <ContentSection points={current.points} />
         </div>
       </MotionDiv>
 
