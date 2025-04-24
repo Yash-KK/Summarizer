@@ -10,6 +10,7 @@ interface NavigationControlsProps {
   onNext: () => void;
   onSectionSelect: (index: number) => void;
 }
+
 const NavigationControls: React.FC<NavigationControlsProps> = ({
   currentSection,
   totalSections,
@@ -18,7 +19,7 @@ const NavigationControls: React.FC<NavigationControlsProps> = ({
   onSectionSelect,
 }) => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-xs border-t border-rose-500/10">
+    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-rose-500/20 to-yellow-500/10 backdrop-blur-md border-t border-rose-500/20">
       <div className="flex justify-between items-center">
         <Button
           variant="ghost"
@@ -26,8 +27,8 @@ const NavigationControls: React.FC<NavigationControlsProps> = ({
           onClick={onPrevious}
           disabled={currentSection === 0}
           className={cn(
-            "rounded-full w-12 h-12 transition-all duration-200 bg-linear-to-br fromt-rose-500 to-rose-600 backdrop-blur-xs border border-rose-500/10",
-            currentSection === 0 ? "opacity-450" : "hover:bg-rose-500/20"
+            "rounded-full w-12 h-12 transition-all duration-200 bg-gradient-to-br from-rose-400 to-yellow-500 border border-rose-500/20",
+            currentSection === 0 ? "opacity-50" : "hover:bg-rose-500/30"
           )}
         >
           <ChevronLeft className="h-6 w-6" />
@@ -39,24 +40,25 @@ const NavigationControls: React.FC<NavigationControlsProps> = ({
               key={index}
               onClick={() => onSectionSelect(index)}
               className={cn(
-                "w-2 h-2 rounded-full transform-all duration-300",
+                "w-3 h-3 rounded-full transform-all duration-300",
                 currentSection === index
-                  ? "bg-linear-to-r from-rose-500 to-rose-600"
-                  : "bg-rose-500/20 hover:bg-rose-500/30"
+                  ? "bg-gradient-to-r from-pink-500 to-rose-600"
+                  : "bg-rose-500/30 hover:bg-rose-500/50"
               )}
             />
           ))}
         </div>
+
         <Button
           variant="ghost"
           size={"icon"}
           onClick={onNext}
           disabled={currentSection === totalSections - 1}
           className={cn(
-            "rounded-full w-12 h-12 transition-all duration-200 bg-linear-to-br fromt-rose-500 to-rose-600 backdrop-blur-xs border border-rose-500/10",
+            "rounded-full w-12 h-12 transition-all duration-200 bg-gradient-to-br from-rose-400 to-yellow-500 border border-rose-500/20",
             currentSection === totalSections - 1
-              ? "opacity-450"
-              : "hover:bg-rose-500/20"
+              ? "opacity-50"
+              : "hover:bg-rose-500/30"
           )}
         >
           <ChevronRight className="h-6 w-6" />

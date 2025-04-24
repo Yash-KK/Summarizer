@@ -34,7 +34,7 @@ const HowItWorksSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="font-bold text-sm uppercase text-rose-500 tracking-widest"
+          className="font-bold text-sm uppercase text-rose-600 tracking-wider"
         >
           How it works
         </MotionH2>
@@ -42,13 +42,13 @@ const HowItWorksSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="font-bold text-3xl sm:text-4xl max-w-2xl mx-auto text-balance leading-tight"
+          className="font-extrabold text-3xl sm:text-4xl max-w-2xl mx-auto text-black leading-tight"
         >
           Transform any PDF into an easy-to-digest summary in three simple steps
         </MotionH3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {steps.map((step, idx) => (
           <StepItem key={idx} {...step} />
         ))}
@@ -59,13 +59,13 @@ const HowItWorksSection = () => {
 
 const StepItem = ({ icon, label, description }: Step) => {
   return (
-    <div className="relative p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-rose-500/20 transition-all duration-300 group shadow-sm hover:shadow-rose-100/10">
-      <div className="flex flex-col gap-4 h-full items-center text-center">
-        <div className="flex items-center justify-center h-24 w-24 rounded-2xl bg-gradient-to-br from-rose-500/10 to-transparent group-hover:from-rose-500/20">
+    <div className="relative p-6 rounded-2xl bg-gradient-to-r from-rose-500/10 to-transparent backdrop-blur-sm border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 group shadow-xl hover:shadow-rose-500/30">
+      <div className="flex flex-col gap-6 h-full items-center text-center">
+        <div className="flex items-center justify-center h-24 w-24 rounded-2xl bg-gradient-to-br from-rose-500/20 to-transparent group-hover:from-rose-500/30">
           <div className="text-rose-500">{icon}</div>
         </div>
-        <h4 className="font-semibold text-xl">{label}</h4>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <h4 className="font-semibold text-xl text-black">{label}</h4>
+        <p className="text-black text-sm">{description}</p>
       </div>
     </div>
   );

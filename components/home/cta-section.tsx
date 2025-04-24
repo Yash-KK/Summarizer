@@ -8,7 +8,7 @@ const CTASection = () => {
       <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center text-center space-y-6">
           <div className="space-y-4">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
               Ready to Save Hours of Reading Time?
             </h2>
             <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 text-lg">
@@ -21,10 +21,10 @@ const CTASection = () => {
             <Link href="#pricing" passHref>
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-900 text-white transition-all duration-300"
+                className="bg-gradient-to-r from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-900 text-white transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 Get Started{" "}
-                <ArrowRight className="ml-2 h-4 w-4 animate-pulse" />
+                <ArrowRight className="ml-2 h-4 w-4 transform hover:translate-x-1 transition-all duration-300" />
               </Button>
             </Link>
           </div>

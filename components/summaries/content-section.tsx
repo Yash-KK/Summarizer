@@ -59,10 +59,9 @@ const RegularPoint = ({ point }: { point: string }) => {
   );
 };
 interface ContentSectionProps {
-  title: string;
   points: string[];
 }
-const ContentSection: React.FC<ContentSectionProps> = ({ title, points }) => {
+const ContentSection: React.FC<ContentSectionProps> = ({ points }) => {
   return (
     <MotionDiv
       variants={containerVariants}

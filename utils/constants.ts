@@ -90,3 +90,35 @@ export const pricingPlans: PriceType[] = [
         : "",
   },
 ];
+
+export const DEMO_SUMMARY = `# 🎉 Welcome to the Future of Document Summarization!
+
+🔍 Document Type: AI-Powered Summary  
+📝 For: Busy professionals who need quick insights.
+
+# 🌟 Highlights:
+• 💨 Get key takeaways in seconds, no need to read the entire document.  
+• 🔑 Extract relevant data instantly from lengthy reports or PDFs.  
+• ⚡ Streamlined decision-making with summarized content at your fingertips.
+
+# 🚀 Why It’s a Game-Changer:
+• 🌟 Save time by focusing on the essentials, not the noise.  
+• 💨 Boost productivity with AI-generated summaries tailored to your needs.  
+• 🔑 Ideal for professionals, researchers, and anyone with limited time.
+
+# 🧠 Main Features:
+• ✨ Instant summaries: Get straight to the point with one click.  
+• 📊 Data extraction: Automatically highlight figures, tables, and critical details.  
+• 📚 Customization: Tailor summaries based on your preferences and priorities.
+
+# ⚡ Pro Tips:
+• 💼 Use this tool for research papers, reports, meeting notes, and more.  
+• 🕒 Save hours each week by summarizing documents faster than ever.  
+• 🎯 Perfect for teams who need quick access to the core ideas.
+
+# 💬 Key Terms to Know:
+• 🧑‍💻 AI Summarization: Using artificial intelligence to shorten and summarize documents while retaining key information.  
+• 📈 Document Extraction: The process of pulling out the most important data points from a document.
+
+# ✅ Bottom Line:
+This tool is all about efficiency. Summarizing documents with AI lets you cut through the clutter and focus on what really matters. Get started now and supercharge your workflow!`;
