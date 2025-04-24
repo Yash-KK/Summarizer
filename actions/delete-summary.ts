@@ -1,5 +1,5 @@
 "use server";
-// import { getDbConnection } from "@/lib/db";
+import { getDbConnection } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
@@ -13,11 +13,9 @@ const deleteSummaryAction = async ({ summaryId }: { summaryId: string }) => {
 
     // delete from db
 
-    // const sql = await getDbConnection();
-    // const result =
-    //   await sql`DELETE FROM pdf_summaries WHERE id=${summaryId} AND user_id = ${userId} RETURNING id;`;
-    const result = [summaryId];
-    console.log("resultList: ", result);
+    const sql = await getDbConnection();
+    const result =
+      await sql`DELETE FROM pdf_summaries WHERE id=${summaryId} AND user_id = ${userId} RETURNING id;`;
     if (result.length > 0) {
       revalidatePath("/dashboard");
       return {

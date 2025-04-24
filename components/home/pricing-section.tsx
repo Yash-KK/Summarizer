@@ -1,27 +1,33 @@
 import { cn } from "@/lib/utils";
-import { pricingPlans, PriceType } from "@/utils/constants";
+import {
+  pricingPlans,
+  PriceType,
+  itemVariants,
+  listVariant,
+} from "@/utils/constants";
 import { ArrowRight, CheckIcon } from "lucide-react";
 import Link from "next/link";
+import { MotionDiv, MotionSection } from "../common/motion-wrapper";
 
 const PricingSection = () => {
   return (
-    <section className="relative overflow-hidden" id="pricing">
+    <MotionSection className="relative overflow-hidden" id="pricing">
       <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="text-center pb-12">
+        <MotionDiv variants={itemVariants} className="text-center pb-12">
           <h2 className="uppercase font-bold text-xl mb-2 text-rose-500">
             Pricing
           </h2>
           <p className="text-3xl font-bold text-gray-900 dark:text-white">
             Simple plans for every need
           </p>
-        </div>
+        </MotionDiv>
         <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8">
           {pricingPlans.map((plan) => (
             <PricingCard key={plan.id} {...plan} />
           ))}
         </div>
       </div>
-    </section>
+    </MotionSection>
   );
 };
 
@@ -36,7 +42,11 @@ const PricingCard: React.FC<PriceType> = ({
   const isPro = id === "pro";
 
   return (
-    <div className="relative w-full max-w-lg">
+    <MotionDiv
+      variants={listVariant}
+      whileHover={{ scale: 1.02 }}
+      className="relative w-full max-w-lg"
+    >
       {isPro && (
         <div className="absolute top-4 right-4 bg-rose-500 text-white text-xs px-3 py-1 rounded-full uppercase font-semibold tracking-wide z-10">
           Most Popular
@@ -49,10 +59,10 @@ const PricingCard: React.FC<PriceType> = ({
           isPro && "border-rose-500 shadow-lg"
         )}
       >
-        <div className="space-y-1">
+        <MotionDiv variants={listVariant} className="space-y-1">
           <h3 className="text-lg lg:text-xl font-bold capitalize">{name}</h3>
           <p className="text-gray-600 dark:text-gray-300">{description}</p>
-        </div>
+        </MotionDiv>
 
         <div className="flex items-end space-x-2">
           <span className="text-5xl font-extrabold tracking-tight">
@@ -75,7 +85,7 @@ const PricingCard: React.FC<PriceType> = ({
           ))}
         </ul>
 
-        <div className="pt-4">
+        <MotionDiv variants={listVariant} className="pt-4">
           <Link
             href={paymentLink}
             className={cn(
@@ -87,9 +97,9 @@ const PricingCard: React.FC<PriceType> = ({
           >
             Get Started <ArrowRight size={18} />
           </Link>
-        </div>
+        </MotionDiv>
       </div>
-    </div>
+    </MotionDiv>
   );
 };
 

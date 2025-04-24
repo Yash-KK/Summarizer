@@ -1,4 +1,5 @@
 import { Pizza } from "lucide-react";
+import { MotionH3 } from "../common/motion-wrapper";
 
 const DemoSection = () => {
   return (
@@ -8,13 +9,18 @@ const DemoSection = () => {
           <div className="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 dark:bg-zinc-900 border border-gray-300/40 dark:border-zinc-700/60 shadow-sm">
             <Pizza className="w-6 h-6 text-rose-500" />
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 dark:text-white leading-tight max-w-4xl">
+          <MotionH3
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duartion: 0.5, delay: 0.2 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 dark:text-white leading-tight max-w-4xl"
+          >
             <span className="block">No More Skimming —</span>
             <span className="bg-gradient-to-r from-rose-500 to-rose-700 bg-clip-text text-transparent">
               Get to the Point
             </span>{" "}
             with AI-Powered PDF Summaries
-          </h2>
+          </MotionH3>
 
           <div className="flex justify-center items-center px-2 sm:px-4 lg:px-6">
             {/* Summary Viewer */}

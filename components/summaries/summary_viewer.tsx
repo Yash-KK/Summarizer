@@ -5,6 +5,7 @@ import { Card } from "../ui/card";
 import NavigationControls from "./navigation-controls";
 import ProgressBar from "./progress-bar";
 import ContentSection from "./content-section";
+import { MotionDiv } from "../common/motion-wrapper";
 
 // Parses a markdown-like section into title and bullet points
 const parseSection = (section: string): { title: string; points: string[] } => {
@@ -31,18 +32,14 @@ const parseSection = (section: string): { title: string; points: string[] } => {
 
   return {
     title,
-    points: points.filter(
-      (point) => point && !point.startsWith("[Choose]")
-    ),
+    points: points.filter((point) => point && !point.startsWith("[Choose]")),
   };
 };
 
 // Renders the section title with sticky effect
 const SectionTitle = ({ title }: { title: string }) => (
   <div className="flex flex-col gap-2 mb-6 sticky top-0 pt-2 pb-4 bg-background/80 backdrop-blur z-10">
-    <h2 className="text-3xl lg:text-4xl font-bold text-center">
-      {title}
-    </h2>
+    <h2 className="text-3xl lg:text-4xl font-bold text-center">{title}</h2>
   </div>
 );
 
@@ -71,12 +68,19 @@ const SummaryView = ({ summary }: { summary: string }) => {
     <Card className="relative px-2 h-[500px] sm:h-[600px] lg:h-[700px] w-full xl:w-[600px] overflow-hidden bg-linear-to-br from-background via-background/95 to-rose-500/5 backdrop-blur-lg shadow-2xl rounded-3xl border border-rose-500/10">
       <ProgressBar sections={sections} currentSection={currentSection} />
 
-      <div className="h-full overflow-y-auto scrollbar-hidden pt-12 sm:pt-16 pb-20 sm:pb-24">
+      <MotionDiv
+        key={currentSection}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        exit={{ opacity: 0 }}
+        className="h-full overflow-y-auto scrollbar-hidden pt-12 sm:pt-16 pb-20 sm:pb-24"
+      >
         <div className="px-4 sm:px-6">
           <SectionTitle title={current.title} />
           <ContentSection title={current.title} points={current.points} />
         </div>
-      </div>
+      </MotionDiv>
 
       <NavigationControls
         currentSection={currentSection}

@@ -1,4 +1,5 @@
 import { BrainCircuit, FileText, Notebook } from "lucide-react";
+import { MotionH2, MotionH3 } from "../common/motion-wrapper";
 
 interface Step {
   icon: React.ReactNode;
@@ -29,12 +30,22 @@ const HowItWorksSection = () => {
   return (
     <section className="py-20 lg:py-28 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="font-bold text-sm uppercase text-rose-500 tracking-widest">
+        <MotionH2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="font-bold text-sm uppercase text-rose-500 tracking-widest"
+        >
           How it works
-        </h2>
-        <h3 className="font-bold text-3xl sm:text-4xl max-w-2xl mx-auto text-balance leading-tight">
+        </MotionH2>
+        <MotionH3
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="font-bold text-3xl sm:text-4xl max-w-2xl mx-auto text-balance leading-tight"
+        >
           Transform any PDF into an easy-to-digest summary in three simple steps
-        </h3>
+        </MotionH3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
