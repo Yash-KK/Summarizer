@@ -71,7 +71,7 @@ export const pricingPlans: PriceType[] = [
   },
   {
     name: "Pro",
-    price: 29,
+    price: 19,
     description: "For professionals and teams",
     items: [
       "Unlimited PDF summaries",
