@@ -1,4 +1,4 @@
-## 📄 Summrizer
+## 📄 Summarizer
 
 **Summrizer** helps you turn bulky PDFs into short, meaningful summaries — like turning a textbook into a trailer. 📚➡️🎬
 
